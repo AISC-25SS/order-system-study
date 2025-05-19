@@ -1,6 +1,6 @@
 package item.ui;
 
-public class UIapplication {
+public class Uiapplication {
 
         public static void main(String[] args) {
             Ui ui = new Ui();
