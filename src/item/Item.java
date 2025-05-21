@@ -8,7 +8,6 @@ public class Item {
         //Frame work 호환용
         public Item (){ }
 
-
         // 신규 사용자 등록용 생성자
         public Item(String name, int price) {
             this.name = name;
