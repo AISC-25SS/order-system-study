@@ -1,9 +1,16 @@
 package item.ui;
 
+import item.ItemService;
+
 import java.util.*;
 
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
+    private final ItemService service;
+
+    public Ui(ItemService service) {
+        this.service = service;
+    }
 
     public void start() {
         while (true) {
@@ -16,10 +23,14 @@ public class Ui {
             String input = scanner.nextLine();
             switch (input) {
                 case "1":
-                    //registerItem();
+                    System.out.print("상품명을 입력하세요:  ");
+                    String itemName = scanner.nextLine();
+                    System.out.print("상품 가격을 입력하세요: ");
+                    int price = Integer.parseInt(scanner.nextLine());
+                    service.registerItem(itemName, price);
                     break;
                 case "2":
-                    //listItems();
+                    service.listItems();
                     break;
                 case "0":
                     System.out.println("프로그램을 종료합니다.");

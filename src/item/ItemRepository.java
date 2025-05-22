@@ -1,8 +1,10 @@
-package Item;
+package item;
 
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ItemRepository {
     private final Map<Long, Item> store = new LinkedHashMap<>();
