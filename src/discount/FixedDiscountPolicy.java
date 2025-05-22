@@ -1,7 +1,9 @@
+package discount;
+
 import tempMember.Grade;
 import tempMember.Member;
 
-// FixedDiscountPolicy.java
+// discount.FixedDiscountPolicy.java
 public class FixedDiscountPolicy implements DiscountPolicy {
 
     private final int discountFixAmount = 1000; // 고정 할인 1000원
