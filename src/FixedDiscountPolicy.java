@@ -9,8 +9,8 @@ public class FixedDiscountPolicy implements DiscountPolicy {
     @Override
     public int discount(Member member, int price) {
         if (member.getGrade() == Grade.VIP)
-            return price - 1000;
+            return price - discountFixAmount;
         else
-            return price;// <- 여기서 member의 getGrade 를 통해서 구현가능
+            return price;
     }
 }
