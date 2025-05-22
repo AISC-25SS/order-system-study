@@ -15,7 +15,7 @@ public class Main {
 
         Order order = new Order(memberId,itemName);
         System.out.println("멤버아이디 :" + order.getMemberId());
-        System.out.println("상품명 :" + order.getItemName());;
+        System.out.println("상품명 :" + order.getItemName());
 
 
     }
