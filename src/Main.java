@@ -7,15 +7,31 @@ public class Main {
     public static void main(String[] args){
 
         Long memberId;
-        String itemName;
+        Long itemId;
+        int quantity;
+        int itemPrice;
+        int discountPrice;
+        int finalPrice;
+
+
 
         Scanner sc = new Scanner(System.in);
         memberId = sc.nextLong();
-        itemName = sc.next();
+        itemId = sc.nextLong();
+        quantity = sc.nextInt();
+        itemPrice = sc.nextInt();
+        discountPrice = sc.nextInt();
+        finalPrice = sc.nextInt();
 
-        Order order = new Order(memberId,itemName);
+
+
+        Order order = new Order(memberId,itemId,itemPrice, discountPrice, finalPrice, quantity);
         System.out.println("멤버아이디 :" + order.getMemberId());
-        System.out.println("상품명 :" + order.getItemName());
+        System.out.println("상품명 :" + order.getItemId());
+        System.out.println("수량 :" + order.getQuantity());
+        System.out.println("가격 :" + order.getItemPrice());
+        System.out.println("할인가격 :" + order.getDiscountPrice());
+        System.out.println("총 금액 :" + order.getFinalPrice());
 
 
     }
