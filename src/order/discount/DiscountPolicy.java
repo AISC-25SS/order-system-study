@@ -1,8 +1,8 @@
-package discount;
+package order.discount;
 
 import tempMember.Member;
 
-// discount.DiscountPolicy.java
+// order.discount.DiscountPolicy.java
 public interface DiscountPolicy {
     int discount(Member member, int price);
 }
