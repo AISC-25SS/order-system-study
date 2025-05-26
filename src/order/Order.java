@@ -9,9 +9,10 @@ public class Order {
     private int discountPrice;
     private int finalPrice;
     private int quantity;
+    private Long orderId;
 
     //    생성자
-    public Order(Long memberId, Long itemId, int itemPrice, int discountPrice, int finalPrice, int quantity) {
+    public Order(Long memberId, Long itemId, int itemPrice, int discountPrice, int finalPrice, int quantity, Long orderId) {
 
         this.memberId = memberId;      // this.변수명 = 입력받을값
         this.itemId = itemId;
@@ -19,7 +20,7 @@ public class Order {
         this.discountPrice = discountPrice;
         this.finalPrice = finalPrice;
         this.quantity = quantity;
-
+        this.orderId = orderId;
 
     }
 
@@ -55,6 +56,10 @@ public class Order {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public Long getOrderId() {return orderId;}
+
+    public void setOrderId(Long orderId) {this.orderId = orderId;}
 
     @Override
     public String toString() {
