@@ -8,7 +8,7 @@ public class Order {
     private int itemPrice;
     private int discountPrice;
     private int finalPrice;
-    public int quantity;
+    private int quantity;
 
     //    생성자
     public Order(Long memberId, Long itemId, int itemPrice, int discountPrice, int finalPrice, int quantity) {
@@ -25,17 +25,11 @@ public class Order {
 
 
     //    메소드
-    public Long getMemberId() {
-        return memberId;
-    }
+    public Long getMemberId() {return memberId;}
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
+    public void setMemberId(Long memberId) {this.memberId = memberId;}
 
-    public Long getItemId() {
-        return itemId;
-    }
+    public Long getItemId() {return itemId;}
 
     public void setItemId(Long itemId) {this.itemId = itemId;}
 
@@ -52,13 +46,9 @@ public class Order {
 
     public void setFinalPrice(int finalPrice) {this.finalPrice = finalPrice;}
 
-    public int getQuantity() {
-        return quantity;
-    }
+    public int getQuantity() {return quantity;}
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    public void setQuantity(int quantity) {this.quantity = quantity;}
 
     @Override
     public String toString() {
