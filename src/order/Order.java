@@ -1,8 +1,8 @@
 package order;
 
-public class Order{
+public class Order {
 
-//    멤버변수
+    //    멤버변수
     private Long memberId;
     private Long itemId;
     private int itemPrice;
@@ -10,7 +10,7 @@ public class Order{
     private int finalPrice;
     public int quantity;
 
-//    생성자
+    //    생성자
     public Order(Long memberId, Long itemId, int itemPrice, int discountPrice, int finalPrice, int quantity) {
 
         this.memberId = memberId;      // this.변수명 = 입력받을값
@@ -21,11 +21,10 @@ public class Order{
         this.quantity = quantity;
 
 
-
     }
 
 
-//    메소드
+    //    메소드
     public Long getMemberId() {
         return memberId;
     }
@@ -38,20 +37,34 @@ public class Order{
         return itemId;
     }
 
-    public void setItemId(Long itemId) {this.itemId = itemId;}
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
+    }
 
-    public int getItemPrice() {return itemPrice;}
+    public int getItemPrice() {
+        return itemPrice;
+    }
 
-    public void setItemPrice(int itemPrice) {this.itemPrice = itemPrice;}
+    public void setItemPrice(int itemPrice) {
+        this.itemPrice = itemPrice;
+    }
     //    확인차 출력
 
-    public int getDiscountPrice() {return discountPrice;}
+    public int getDiscountPrice() {
+        return discountPrice;
+    }
 
-    public void setDiscountPrice(int discountPrice) {this.discountPrice = discountPrice;}
+    public void setDiscountPrice(int discountPrice) {
+        this.discountPrice = discountPrice;
+    }
 
-    public int getFinalPrice() {return finalPrice;}
+    public int getFinalPrice() {
+        return finalPrice;
+    }
 
-    public void setFinalPrice(int finalPrice) {this.finalPrice = finalPrice;}
+    public void setFinalPrice(int finalPrice) {
+        this.finalPrice = finalPrice;
+    }
 
     public int getQuantity() {
         return quantity;
@@ -61,12 +74,19 @@ public class Order{
         this.quantity = quantity;
     }
 
-//    public String toString(){
-//        return "Oredr{" + 상품명 :
-//    }
-
-
+    @Override
+    public String toString() {
+        return "[주문] 회원ID: " + memberId +
+                ", 상품ID: " + itemId +
+                ", 수량: " + quantity +
+                ", 상품 가격: " + itemPrice +
+                ", 할인 금액: " + discountPrice +
+                ", 결제 금액: " + finalPrice;
+    }
 
 }
+
+
+
 
 
