@@ -45,14 +45,10 @@ public class Item {
             this.price = price;
         }
 
-        // 객체 정보를 문자열로 표현
+        // 객체 정보를 보기 좋게 문자열로 표현
         @Override
         public String toString() {
-            return "Item{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    ", price=" + price +
-                    '}';
+            return String.format("[ID: %d] | 상품명: %-15s | 가격: %,d원", id, name, price);
         }
 
 }
