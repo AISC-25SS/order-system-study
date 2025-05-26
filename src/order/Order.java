@@ -37,34 +37,20 @@ public class Order {
         return itemId;
     }
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
+    public void setItemId(Long itemId) {this.itemId = itemId;}
 
-    public int getItemPrice() {
-        return itemPrice;
-    }
+    public int getItemPrice() {return itemPrice;}
 
-    public void setItemPrice(int itemPrice) {
-        this.itemPrice = itemPrice;
-    }
+    public void setItemPrice(int itemPrice) {this.itemPrice = itemPrice;}
     //    확인차 출력
 
-    public int getDiscountPrice() {
-        return discountPrice;
-    }
+    public int getDiscountPrice() {return discountPrice;}
 
-    public void setDiscountPrice(int discountPrice) {
-        this.discountPrice = discountPrice;
-    }
+    public void setDiscountPrice(int discountPrice) {this.discountPrice = discountPrice;}
 
-    public int getFinalPrice() {
-        return finalPrice;
-    }
+    public int getFinalPrice() {return finalPrice;}
 
-    public void setFinalPrice(int finalPrice) {
-        this.finalPrice = finalPrice;
-    }
+    public void setFinalPrice(int finalPrice) {this.finalPrice = finalPrice;}
 
     public int getQuantity() {
         return quantity;
