@@ -9,4 +9,5 @@ public interface OrderService { //계산서 조회 인터페이스
     List<Order> getOrder(); //Order객체 찾기
     boolean updateOrder(Order order); //업데이트가 됐다면 true, 없으면 false리턴
     boolean deleteOrder(Order order); //삭제가 됐다면 true, 없으면 false 리턴
+    boolean isEmpty();
 }
