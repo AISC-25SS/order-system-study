@@ -11,7 +11,12 @@ public class Order {
     private int quantity;
     private Long orderId;
 
-    //    생성자
+    //디폴트 생성자
+    public Order() {
+
+    }
+
+    //생성자
     public Order(Long memberId, Long itemId, int itemPrice, int discountPrice, int finalPrice, int quantity, Long orderId) {
 
         this.memberId = memberId;      // this.변수명 = 입력받을값
