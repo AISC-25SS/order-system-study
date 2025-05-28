@@ -16,4 +16,7 @@ public interface MemberService {
     // 전체 회원 목록 조회
     List<Member> findAll();
 
+    // 아이디 중복 여부 검사
+    boolean isLoginIdDuplicate(String loginId);
+
 }
