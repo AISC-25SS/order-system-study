@@ -10,7 +10,7 @@ public class ItemUI {
         this.service = service;
     }
 
-    public void start() {
+    public void run() {
         while (true) {
             System.out.println("\n=== 상품 관리 시스템 ===");
             System.out.println("1. 상품 등록");
