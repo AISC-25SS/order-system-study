@@ -14,7 +14,9 @@ public class MemberServiceImpl implements MemberService{
         // TODO: 은혜 담당 회원가입 중복 여부 확인
         //  해당 부분에 로그인 중복 검사 구현, 성공시 true 아니면 false
         //  중복 검사 시에는 memberRepository.findByLoginId() 호출 필요.
-        return true;
+        Member member = memberRepository.findByLoginId(loginId);
+
+        return member != null;
     }
 
     @Override
@@ -25,6 +27,24 @@ public class MemberServiceImpl implements MemberService{
         //  이때 memberId 는 memberRepository.nextId() 로 받아올 수 있음
         //  MemoryMemberRepository 메소드 참고 바람
         //  오류시 처리: throw new IllegalArgumentException("이미 사용 중인 로그인 ID입니다.");
+        if (isLoginIdDuplicate(member.getLoginId())) {
+            throw new IllegalArgumentException("이미 사용 중인 로그인 ID입니다.");
+        }
+
+        MemoryMemberRepository repo = (MemoryMemberRepository) memberRepository;
+        Long newId = repo.nextId();
+
+        Member newMember = new Member(
+                newId,
+                member.getLoginId(),
+                member.getLoginPw(),
+                member.getName(),
+                member.getGrade()
+        );
+
+        memberRepository.save(newMember);
+
+        System.out.println("회원가입이 완료되었습니다!");
     }
 
     @Override
@@ -40,7 +60,18 @@ public class MemberServiceImpl implements MemberService{
         //  비밀번호 확인시는 member.getLoginPw() 로 비밀번호를 받아올 수 있음
         //  오류시 처리: throw new IllegalArgumentException("로그인 실패: ID 또는 비밀번호가 일치하지 않습니다.");
         //  파이팅 !!
-        return null; // 성공시 Member 리턴 아니면 null
+        Member member = memberRepository.findByLoginId(loginId);
+
+        if (member == null) {
+            return null;
+        }
+
+        if (!member.getLoginPw().equals(loginPw)) {
+            return null;
+        }
+
+        return member;
+        // 성공시 Member 리턴 아니면 null
     }
 
     @Override
