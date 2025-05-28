@@ -30,7 +30,7 @@ public class ItemUI {
                     service.registerItem(itemName, price);
                     break;
                 case "2":
-                    service.listItems();
+                    displayAllItems(); // service.listItems() 대신 UI에서 직접 처리
                     break;
                 case "3":
                     updateItem();
@@ -49,7 +49,7 @@ public class ItemUI {
 
     private void updateItem() {
         System.out.println("\n=== 상품 수정 ===");
-        service.listItems(); // 현재 상품 목록 표시
+        displayAllItems(); // 상품 목록 표시 메소드 호출로 변경
 
         System.out.print("수정할 상품의 ID를 입력하세요: ");
         try {
@@ -83,9 +83,22 @@ public class ItemUI {
         }
     }
 
+    // 상품 목록을 출력하는 메소드 추가
+    private void displayAllItems() {
+        List<Item> items = service.getAllItems();
+        if (items.isEmpty()) {
+            System.out.println("등록된 상품이 없습니다.");
+        } else {
+            System.out.println("등록된 상품 목록:");
+            for (Item item : items) {
+                System.out.println(item);
+            }
+        }
+    }
+
     private void deleteItem() {
         System.out.println("\n=== 상품 삭제 ===");
-        service.listItems(); // 현재 상품 목록 표시
+        displayAllItems(); // service.listItems() 대신 UI에서 직접 처리
 
         System.out.print("삭제할 상품의 ID를 입력하세요: ");
         try {
@@ -102,3 +115,4 @@ public class ItemUI {
         }
     }
 }
+

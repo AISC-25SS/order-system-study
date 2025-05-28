@@ -11,21 +11,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item registerItem(String name, int price) {
-        Item item = new Item(null, name, price);
+        Item item = new Item(name, price);
         return repository.save(item);
-    }
-
-    @Override
-    public void listItems() {
-        List<Item> items = repository.findAll();
-        if (items.isEmpty()) {
-            System.out.println("등록된 상품이 없습니다.");
-        } else {
-            System.out.println("등록된 상품 목록:");
-            for (Item item : items) {
-                System.out.println(item);
-            }
-        }
     }
 
     @Override
@@ -53,3 +40,4 @@ public class ItemServiceImpl implements ItemService {
         return true;
     }
 }
+
