@@ -1,5 +1,8 @@
 package order;
 
+import member.Member;
+import member.MemberUI;
+
 import java.util.*;
 
 
@@ -21,11 +24,11 @@ public class OrderUI {
             System.out.println("0. 종료");
             System.out.print("메뉴를 선택하세요: ");
 
-            //scanner.nextLine();
 
             String input = scanner.nextLine();
             switch (input) {
                 case "1":
+                    Member loginMember =
                     createOrder();
                     break;
 
@@ -52,6 +55,7 @@ public class OrderUI {
         }
     }
 
+    // 주문 생성
     private void createOrder() {
         //Order 객체 생성에 필요한 데이터를 임시 저장하는 지역변수들
         Long memberId = 0L;
@@ -71,7 +75,8 @@ public class OrderUI {
         try {
             System.out.println("회원 ID를 입력하세요: ");
             memberId = scanner.nextLong();
-            member = service.getMemberService().findById(memberId);
+            member = memberService.findById(memberId);
+            //member = service.getMemberService().findById(memberId);
         } catch (NumberFormatException e) {
             System.out.println("올바른 회원 ID를 입력해주세요.");
         }
@@ -80,7 +85,8 @@ public class OrderUI {
         try {
             System.out.print("상품 ID를 입력하세요:  ");
             itemId = scanner.nextLong();
-            item = service.getItemService().getItem(itemId);
+            item = itemService.getItem(itemId);
+            //item = service.getItemService().getItem(itemId);
             itemPrice = item.getPrice();
         } catch(NumberFormatException e) {
             System.out.println("올바른 상품 ID를 입력해주세요.");
@@ -99,8 +105,8 @@ public class OrderUI {
 
         //할인 금액 계산 및 할인 방식 입력
         try {
-            fixedDiscountPrice = service.getFixedDiscountPolicy().discount(member, totalPrice);
-            rateDiscountPrice = service.getRateDiscountPolicy().discount(member, totalPrice);
+            fixedDiscountPrice = fixedDiscountPolicy().discount(member, totalPrice);
+            rateDiscountPrice = rateDiscountPolicy().discount(member, totalPrice);
             System.out.println("1. 고정 할인가 적용 금액: " + fixedDiscountPrice);
             System.out.println("2. 고정 할인율 적용 금액: " + rateDiscountPrice);
             System.out.println("할인 적용 방식을 선택하세요: ");
