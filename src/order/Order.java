@@ -2,7 +2,6 @@ package order;
 
 public class Order {
 
-    //멤버변수
     private Long memberId;
     private Long itemId;
     private int itemPrice;
@@ -15,8 +14,7 @@ public class Order {
     public Order() {
 
     }
-
-    //생성자
+    //    생성자
     public Order(Long memberId, Long itemId, int itemPrice, int discountPrice, int finalPrice, int quantity, Long orderId) {
 
         this.memberId = memberId;      // this.변수명 = 입력받을값
@@ -30,7 +28,7 @@ public class Order {
     }
 
 
-    //    메소드
+    //메소드
     public Long getMemberId() {
         return memberId;
     }
@@ -38,7 +36,7 @@ public class Order {
     public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
-
+  
     public Long getItemId() {
         return itemId;
     }
@@ -87,6 +85,7 @@ public class Order {
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
+
 
     @Override
     public String toString() {
