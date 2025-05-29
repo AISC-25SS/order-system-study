@@ -2,6 +2,7 @@ package order;
 
 public class Order {
 
+    //멤버변수
     private Long memberId;
     private Long itemId;
     private int itemPrice;
@@ -10,25 +11,31 @@ public class Order {
     private int quantity;
     private Long orderId;
 
-    //디폴트 생성자
-    public Order() {
 
-    }
-    //    생성자
+
+    // 모든 필드 초기화 (orderId 포함)
     public Order(Long memberId, Long itemId, int itemPrice, int discountPrice, int finalPrice, int quantity, Long orderId) {
-
-        this.memberId = memberId;      // this.변수명 = 입력받을값
+        this.memberId = memberId;
         this.itemId = itemId;
         this.itemPrice = itemPrice;
         this.discountPrice = discountPrice;
         this.finalPrice = finalPrice;
         this.quantity = quantity;
         this.orderId = orderId;
+    }
 
+    // orderId 없이 초기화
+    public Order(Long memberId, Long itemId, int itemPrice, int discountPrice, int finalPrice, int quantity) {
+        this.memberId = memberId;
+        this.itemId = itemId;
+        this.itemPrice = itemPrice;
+        this.discountPrice = discountPrice;
+        this.finalPrice = finalPrice;
+        this.quantity = quantity;
     }
 
 
-    //메소드
+    //    메소드
     public Long getMemberId() {
         return memberId;
     }
@@ -36,7 +43,7 @@ public class Order {
     public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
-  
+
     public Long getItemId() {
         return itemId;
     }
@@ -85,7 +92,6 @@ public class Order {
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
-
 
     @Override
     public String toString() {
