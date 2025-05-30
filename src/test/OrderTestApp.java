@@ -21,6 +21,7 @@ public class OrderTestApp {
 
 
         MemberUI memberUI = new MemberUI(memberService);
+
         ItemUI itemUI = new ItemUI(itemService);
 
         OrderRepository orderRepository = new MemoryOrderRepository();

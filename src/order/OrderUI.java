@@ -113,8 +113,9 @@ public class OrderUI {
         System.out.print("취소할 주문의 번호를 입력하세요: ");
         orderId = scanner.nextLong();
         scanner.nextLine();
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | InputMismatchException e) {
             System.out.println("올바른 주문 ID를 입력해주세요.");
+            scanner.nextLine();
         }
 
         if (!service.delete(orderId)) {

@@ -83,7 +83,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     public void isValidateItemById(Long itemId) {
-        if(itemService.getItem(itemId) == null) {
+        if (itemService.getItem(itemId) == null) {
             throw new NumberFormatException("올바른 상품 ID를 입력해주세요.");
         }
     }
