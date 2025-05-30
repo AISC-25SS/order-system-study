@@ -5,30 +5,37 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public class MemoryOrderRepository implements OrderRepository {
-    private final HashMap<Long, Long> storedOrderId = new HashMap<>();
-    private final HashMap<Long, Order> storedOrder = new HashMap<>();
+
+    //(memberId, List<order객체>) 저장
+    private final HashMap<Long, List<Order>> storedOrder = new HashMap<>();
+
     private long sequence = 0;
 
     @Override
-    public Order save(Order order) {
+    public Order save(Order order, Long quantity) {
+
+        List<Order> orders = storedOrder.get(order.getMemberId());
+
+        if(orders == null) {
+            orders = new ArrayList<>();
+        }
         order.setOrderId(++sequence);
-        store.put(order.getOrderId(), order);
-        return null;
+        orders.add(order);
+        storedOrder.put(order.getMemberId(), orders);
+
+        return order;
     }
 
+    //현재 로그인된 memberId를 가지고 있으므로 가능함
     @Override
-    public List<Order> findAll() {
-        for()
-        return new ArrayList<>(storedOrderId.values());
+    public List<Order> findMemberOrderedAll(Long memberId) {
+        return storedOrder.get(memberId);
     }
 
-    @Override
-    public Order findById(Long orderId) {
-
-    }
+    //
 
     @Override
-    public boolean updateOrder(Long orderId, int quantity) {
+    public boolean update(Long orderId, int quantity) {
         Order order = store.get(orderId);
         if(order != null) {
             order.setQuantity(quantity);
@@ -36,9 +43,10 @@ public class MemoryOrderRepository implements OrderRepository {
     }
 
     @Override
-    public boolean deleteOrder(Long orderId) {
+    public boolean delete(Long orderId) {
         store.remove(orderId);
 
     }
 }
 }
+

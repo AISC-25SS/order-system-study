@@ -2,6 +2,7 @@ package order;
 
 import order.discount.DiscountPolicy;
 
+
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService{
@@ -22,7 +23,8 @@ public class OrderServiceImpl implements OrderService{
     public Order registerOrder(Long memberId, Long itemId, int quantity) {
         //Member에서 가져오기
         Member member = memberService.findById(memberId);
-        //Item item = itemService.getItem(itemId);
+
+        Item item = itemService.getItem(itemId);
 
         int itemPrice = item.getPrice();
         int discount = discountPolict.discount(member, itemPrice) * quantity;
@@ -30,7 +32,7 @@ public class OrderServiceImpl implements OrderService{
 
         Order order = new Order(memberId, itemId,
                                 itemPrice, discount,
-                                finalPrice, quantity, null); //여기는 Order객체 생성자 고쳐지면 null삭제
+                                finalPrice, quantity); //여기는 Order객체 생성자 고쳐지면 null삭제
 
         return repository.save(order);
     }
@@ -47,18 +49,18 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public boolean updateOrder(Long orderId, int quantity) {
+    public boolean update(Long orderId, int quantity) {
         Order order = repository.findById(orderId);
         if (order == null) return false;
-        repository.updateOrder(orderId, quantity);
+        repository.update(orderId, quantity);
         return true;
     }
 
     @Override
-    public boolean deleteOrder(Long orderId) {
+    public boolean delete(Long orderId) {
         Order order = repository.findById(orderId);
         if (order == null) return false;
-        repository.deleteOrder(orderId);
+        repository.delete(orderId);
         return true;
     }
 
