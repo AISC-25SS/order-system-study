@@ -82,7 +82,7 @@ public class OrderUI {
             scanner.nextLine();
             service.isValidateItemById(itemId);
 
-        } catch(NumberFormatException e) {
+        } catch(NumberFormatException | InputMismatchException  e) {
             System.out.println(e.getMessage());
         }
 
