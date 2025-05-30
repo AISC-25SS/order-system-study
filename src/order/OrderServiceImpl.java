@@ -6,35 +6,36 @@ import order.discount.DiscountPolicy;
 import member.Member;
 import item.Item;
 import order.discount.FixedDiscountPolicy;
+import order.discount.RateDiscountPolicy;
 
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService{
     private final MemberService memberService;
     private final ItemService itemService;
-    public final DiscountPolicy discountPolicy;
     private final OrderRepository repository;
+    private final DiscountPolicy fixedDiscountPolicy = new FixedDiscountPolicy();
+    private final DiscountPolicy rateDiscountPolicy = new RateDiscountPolicy();
 
 
-    public OrderServiceImpl(MemberService memberService, ItemService itemService, DiscountPolicy discountPolicy, OrderRepository repository) {
+    public OrderServiceImpl(MemberService memberService, ItemService itemService, OrderRepository repository) {
         this.memberService = memberService;
         this.itemService = itemService;
-        this.discountPolicy = discountPolicy;
         this.repository = repository;
     };
 
 
     @Override
     public Order registerOrder(Long memberId, Long itemId, int quantity) {
-        //Member에서 가져오기
+
         Member member = memberService.findById(memberId);
 
         Item item = itemService.getItem(itemId);
 
         int itemPrice = item.getPrice();
 
-        int fixedDiscount = discountPolicy.discount(member, itemPrice);
-        int rateDiscount = discountPolicy.discount(member, itemPrice);
+        int fixedDiscount = fixedDiscountPolicy.discount(member, itemPrice);
+        int rateDiscount = rateDiscountPolicy.discount(member, itemPrice);
         int discount = Math.max(fixedDiscount, rateDiscount);
 
         int finalPrice =  (itemPrice - discount) * quantity;
