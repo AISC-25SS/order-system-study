@@ -99,7 +99,8 @@ public class Order {
 
     @Override
     public String toString() {
-        return "[주문] 회원ID: " + memberId +
+        return "[주문] 주문ID: " + orderId +
+                ", 회원ID: " + memberId +
                 ", 상품ID: " + itemId +
                 ", 수량: " + quantity +
                 ", 상품 가격: " + itemPrice +
