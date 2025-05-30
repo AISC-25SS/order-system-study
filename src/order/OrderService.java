@@ -13,9 +13,9 @@ public interface OrderService {
     Order getOrder(Long memberId);
 
     //업데이트가 됐다면 true, 없으면 false 리턴
-    boolean updateOrder(Long orderId, int quantity);
+    boolean update(Long orderId, int quantity);
 
     //삭제가 됐다면 true, 없으면 false 리턴
-    boolean deleteOrder(Long orderId);
+    boolean delete(Long orderId);
 
 }

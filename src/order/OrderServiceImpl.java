@@ -1,8 +1,10 @@
 package order;
 
+import item.ItemService;
+import member.MemberService;
 import order.discount.DiscountPolicy;
-
-
+import member.Member;
+import item.Item;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService{
@@ -27,7 +29,7 @@ public class OrderServiceImpl implements OrderService{
         Item item = itemService.getItem(itemId);
 
         int itemPrice = item.getPrice();
-        int discount = discountPolict.discount(member, itemPrice) * quantity;
+        int discount = discountPolicy.discount(member, itemPrice) * quantity;
         int finalPrice = itemPrice * quantity - discount;
 
         Order order = new Order(memberId, itemId,

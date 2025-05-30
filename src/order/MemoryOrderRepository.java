@@ -32,26 +32,31 @@ public class MemoryOrderRepository implements OrderRepository {
         return storedOrder.get(memberId);
     }
 
-    public Order findById(Long id) {
-        return new Order();
-    }
+
 
     @Override
     public boolean update(Long orderId, int quantity) {
-        Order order = storedOrder.get(orderId);
-        if (order != null) {
-            order.setQuantity(quantity);
-            return false;
+        for (List<Order> orders : storedOrder.values()) {
+            for (Order order : orders) {
+                if (order.getOrderId().equals(orderId)) {
+                    order.setQuantity(quantity);
+                    return true;
+                }
+            }
         }
-
-        return true;
+        return false; // 못 찾은 경우
     }
 
     @Override
     public boolean delete(Long orderId) {
-        storedOrder.remove(orderId);
-
-        return true;
+        for (List<Order> orders : storedOrder.values()) {
+            for (Order order : orders) {
+                if (order.getOrderId().equals(orderId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 
