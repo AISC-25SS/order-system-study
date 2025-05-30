@@ -1,6 +1,8 @@
 package order;
 
 import java.util.List;
+
+import item.Item;
 import member.Member;
 
 public interface OrderService {
@@ -18,5 +20,9 @@ public interface OrderService {
 
     //삭제가 됐다면 true, 없으면 false 리턴
     boolean delete(Long orderId);
+
+    List<Item> displayItem();
+
+    void isValidateItemById(Long itemId);
 
 }

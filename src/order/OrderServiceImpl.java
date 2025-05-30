@@ -81,4 +81,9 @@ public class OrderServiceImpl implements OrderService{
         return itemService.getAllItems();
     }
 
+    public void isValidateItemById(Long itemId) {
+        if(itemService.getItem(itemId) == null) {
+            throw new NumberFormatException();
+        }
+    }
 }

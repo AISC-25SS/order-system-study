@@ -1,5 +1,6 @@
 package order;
 
+import item.Item;
 import member.Member;
 
 import java.util.*;
@@ -8,14 +9,13 @@ import java.util.*;
 public class OrderUI {
     private final Scanner scanner = new Scanner(System.in);
     private final OrderService service;
-    private Member loginMember;
+
 
     public OrderUI(OrderService service) {
         this.service = service;
     }
 
-    public void run(Member member) {
-        loginMember = member;
+    public void run(Member loginMember) {
         while (true) {
             System.out.println("\n=== 주문 관리 시스템 ===");
             System.out.println("0. 상품 목록 보기");
@@ -31,9 +31,12 @@ public class OrderUI {
             String input = scanner.nextLine();
             switch (input) {
                 case "0":
-                    service.
+                    List<Item> itemList = service.displayItem();
+                    for (Item item : itemList)
+                        System.out.println(item);
+
                 case "1":
-                    createOrder();
+                    createOrder(loginMember.getMemberId());
                     break;
 
                 case "2":
@@ -59,40 +62,20 @@ public class OrderUI {
         }
     }
 
-    private void createOrder() {
+    private void createOrder(Long memberId) {
         //Order 객체 생성에 필요한 데이터를 임시 저장하는 지역변수들
-        Long memberId = 0L;
         Long itemId = 0L;
         int quantity = 0;
-        int itemPrice = 0;
-        int totalPrice;
-        int discountPrice = 0;
-        int fixedDiscountPrice;
-        int rateDiscountPrice;
-        int finalPrice = 0;
-        Member member = null;
-        Item item;
-        Order newOrder;
-
-        //회원 정보 및 회원 객체 저장
-        try {
-            System.out.println("회원 ID를 입력하세요: ");
-            memberId = scanner.nextLong();
-            member = service.getMemberService().findById(memberId);
-        } catch (NumberFormatException e) {
-            System.out.println("올바른 회원 ID를 입력해주세요.");
-        }
 
         //상품 정보 및 상품 객체 저장
         try {
             System.out.print("상품 ID를 입력하세요:  ");
             itemId = scanner.nextLong();
-            item = service.getItemService().getItem(itemId);
-            itemPrice = item.getPrice();
+
+            service.isValidateItemById(itemId);
         } catch(NumberFormatException e) {
             System.out.println("올바른 상품 ID를 입력해주세요.");
         }
-
 
         //주문 수량 입력 (간단한 예외처리)
         while (quantity <= 0) {
@@ -102,63 +85,65 @@ public class OrderUI {
                 System.out.println("올바른 수량을 입력해주세요");
             }
         }
-        totalPrice = itemPrice * quantity;
 
-        //할인 금액 계산 및 할인 방식 입력
-        try {
-            fixedDiscountPrice = service.getFixedDiscountPolicy().discount(member, totalPrice);
-            rateDiscountPrice = service.getRateDiscountPolicy().discount(member, totalPrice);
-            System.out.println("1. 고정 할인가 적용 금액: " + fixedDiscountPrice);
-            System.out.println("2. 고정 할인율 적용 금액: " + rateDiscountPrice);
-            System.out.println("할인 적용 방식을 선택하세요: ");
-            int selectDiscount = scanner.nextInt();
-
-            if (selectDiscount == 1) {
-                finalPrice = totalPrice - fixedDiscountPrice;
-                discountPrice = fixedDiscountPrice;
-            } else if (selectDiscount == 2) {
-                finalPrice = totalPrice - rateDiscountPrice;
-                discountPrice = rateDiscountPrice;
-            } else {
-                System.out.println("올바른 입력이 아닙니다");
-                return;
-            }
-        } catch(NumberFormatException e) {
-            System.out.println("올바른 입력이 아닙니다.");
-        }
+        service.registerOrder(memberId, itemId, quantity);
 
 
-        //주문 정보 확인창
-        System.out.println("[주문 정보 확인]");
-        System.out.println("회원ID: " + memberId);
-        System.out.println("상품ID: " + itemId);
-        System.out.println("수량: " + quantity);
-        System.out.println("상품 가격: " + itemPrice);
-        System.out.println("할인 금액: " + discountPrice);
-        System.out.println(", 결제 금액: " + finalPrice);
-        System.out.println("---------------------------");
+//        //할인 금액 계산 및 할인 방식 입력 (폐기)
+//        try {
+//            fixedDiscountPrice = service.getFixedDiscountPolicy().discount(member, totalPrice);
+//            rateDiscountPrice = service.getRateDiscountPolicy().discount(member, totalPrice);
+//            System.out.println("1. 고정 할인가 적용 금액: " + fixedDiscountPrice);
+//            System.out.println("2. 고정 할인율 적용 금액: " + rateDiscountPrice);
+//            System.out.println("할인 적용 방식을 선택하세요: ");
+//            int selectDiscount = scanner.nextInt();
+//
+//            if (selectDiscount == 1) {
+//                finalPrice = totalPrice - fixedDiscountPrice;
+//                discountPrice = fixedDiscountPrice;
+//            } else if (selectDiscount == 2) {
+//                finalPrice = totalPrice - rateDiscountPrice;
+//                discountPrice = rateDiscountPrice;
+//            } else {
+//                System.out.println("올바른 입력이 아닙니다");
+//                return;
+//            }
+//        } catch(NumberFormatException e) {
+//            System.out.println("올바른 입력이 아닙니다.");
+//        }
 
-        try {
-            System.out.println("상품을 주문하시겠습니까? (예: 1, 아니오: 0): ");
-            int selectOrder = scanner.nextInt();
-            if (selectOrder == 1) {
-                newOrder = new Order(memberId, itemId, itemPrice, discountPrice, finalPrice, quantity, 0L);
-                service.registerOrder(newOrder);
-                System.out.println("주문이 완료되었습니다");
-            }
 
-            else if (selectOrder == 0) {
-                System.out.println("주문이 중단되었습니다");
-                return;
-            }
-
-            else {
-                System.out.println("올바른 입력이 아닙니다.");
-                return;
-            }
-        } catch(NumberFormatException e) {
-            System.out.println("올바른 입력이 아닙니다.");
-        }
+//        //주문 정보 확인창 (폐기)
+//        System.out.println("[주문 정보 확인]");
+//        System.out.println("회원ID: " + memberId);
+//        System.out.println("상품ID: " + itemId);
+//        System.out.println("수량: " + quantity);
+//        System.out.println("상품 가격: " + itemPrice);
+//        System.out.println("할인 금액: " + discountPrice);
+//        System.out.println(", 결제 금액: " + finalPrice);
+//        System.out.println("---------------------------");
+//
+//        try {
+//            System.out.println("상품을 주문하시겠습니까? (예: 1, 아니오: 0): ");
+//            int selectOrder = scanner.nextInt();
+//            if (selectOrder == 1) {
+//                newOrder = new Order(memberId, itemId, itemPrice, discountPrice, finalPrice, quantity, 0L);
+//                service.registerOrder(newOrder);
+//                System.out.println("주문이 완료되었습니다");
+//            }
+//
+//            else if (selectOrder == 0) {
+//                System.out.println("주문이 중단되었습니다");
+//                return;
+//            }
+//
+//            else {
+//                System.out.println("올바른 입력이 아닙니다.");
+//                return;
+//            }
+//        } catch(NumberFormatException e) {
+//            System.out.println("올바른 입력이 아닙니다.");
+//        }
     }
 
 //    private void updateOrder() {
