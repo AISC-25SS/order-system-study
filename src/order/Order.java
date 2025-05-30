@@ -63,7 +63,6 @@ public class Order {
     public void setItemPrice(int itemPrice) {
         this.itemPrice = itemPrice;
     }
-    //    확인차 출력
 
     public int getDiscountPrice() {
         return discountPrice;
