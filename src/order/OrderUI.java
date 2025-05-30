@@ -45,7 +45,11 @@ public class OrderUI {
                     break;
 
                 case "3":
-                    findOrder(loginMember.getMemberId());
+                    try {
+                        findOrder(loginMember.getMemberId());
+                    } catch (NoSuchElementException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case "4":
@@ -75,10 +79,10 @@ public class OrderUI {
         try {
             System.out.print("상품 ID를 입력하세요:  ");
             itemId = scanner.nextLong();
-
             service.isValidateItemById(itemId);
+
         } catch(NumberFormatException e) {
-            System.out.println("올바른 상품 ID를 입력해주세요.");
+            System.out.println(e.getMessage());
         }
 
         //주문 수량 입력 (간단한 예외처리)
@@ -95,13 +99,15 @@ public class OrderUI {
 
     private void findOrder(Long memberId) {
         List<Order> orderList = service.getALLOrders(memberId);
+        if (orderList.isEmpty())
+            throw new NoSuchElementException("일치하는 주문이 없습니다");
         for (Order order : orderList)
             System.out.println(order);
     }
 
     private void deleteOrder(Long orderId) {
         if(!service.delete(orderId)) {
-            throw new IllegalArgumentException("유효하지 않은 주문입니다");
+            throw new IllegalArgumentException("유효하지 않은 요청입니다");
         }
     }
 }

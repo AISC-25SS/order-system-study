@@ -34,9 +34,9 @@ public class MemoryOrderRepository implements OrderRepository {
     }
 
     public Order findById(Long orderId) {
-        for(List<Order>  orders : storedOrder.values()) {
+        for(List<Order> orders : storedOrder.values()) {
             for(Order order : orders) {
-                if(order.getOrderId().equals(orderId)) {
+                if (order.getOrderId().equals(orderId)) {
                     return order;
                 }
             }
