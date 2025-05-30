@@ -48,15 +48,15 @@ public class OrderServiceImpl implements OrderService{
 
 
     @Override
-    public List<Order> getALLOrders() {
-        return repository.findMemberOrderedAll(Long memberId);
+    public List<Order> getALLOrders(Long memberId) {
+        return repository.findMemberOrderedAll(memberId);
 
 
     }
 
     @Override
-    public Order getOrder(Long id) {
-        return repository.findById();
+    public Order getOrder(Long memberId) {
+        return repository.findById(memberId);
     }
 
 
