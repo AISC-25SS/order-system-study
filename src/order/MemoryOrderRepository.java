@@ -1,5 +1,6 @@
 package order;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -29,10 +30,19 @@ public class MemoryOrderRepository implements OrderRepository {
     //현재 로그인된 memberId를 가지고 있으므로 가능함
     @Override
     public List<Order> findMemberOrderedAll(Long memberId) {
-        return storedOrder.get(memberId);
+        return storedOrder.getOrDefault(memberId, Collections.emptyList());
     }
 
-
+    public Order findById(Long orderId) {
+        for(List<Order>  orders : storedOrder.values()) {
+            for(Order order : orders) {
+                if(order.getOrderId().equals(orderId)) {
+                    return order;
+                }
+            }
+        }
+        return null;
+    }
 
     @Override
     public boolean update(Long orderId, int quantity) {
@@ -50,8 +60,9 @@ public class MemoryOrderRepository implements OrderRepository {
     @Override
     public boolean delete(Long orderId) {
         for (List<Order> orders : storedOrder.values()) {
-            for (Order order : orders) {
-                if (order.getOrderId().equals(orderId)) {
+            for (int i = 0; i < orders.size(); i++) {
+                if (orders.get(i).getOrderId().equals(orderId)) {
+                    orders.remove(i);
                     return true;
                 }
             }

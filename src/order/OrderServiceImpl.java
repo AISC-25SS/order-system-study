@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService{
         this.memberService = memberService;
         this.itemService = itemService;
         this.repository = repository;
-    };
+    }
 
 
     @Override
@@ -56,8 +56,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order getOrder(Long memberId) {
-        return repository.findById(memberId);
+    public Order getOrder(Long orderId) {
+        return repository.findById(orderId);
     }
 
 
