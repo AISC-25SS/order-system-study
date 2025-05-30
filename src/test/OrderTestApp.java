@@ -27,6 +27,7 @@ public class OrderTestApp {
         OrderService orderService = new OrderServiceImpl(memberService, itemService, orderRepository);
 
         OrderUI orderUI = new OrderUI(orderService);
+        memberUI.run();
 
         orderUI.run(memberUI.getCurrentMember());
 

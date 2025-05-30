@@ -38,6 +38,8 @@ public class OrderUI {
                     for (Item item : itemList)
                         System.out.println(item);
 
+                    break;
+
                 case "2":
                     createOrder(loginMember.getMemberId());
                     break;
