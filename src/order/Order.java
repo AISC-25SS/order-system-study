@@ -11,6 +11,10 @@ public class Order {
     private int quantity;
     private Long orderId;
 
+    //디폴트 생성자
+    public Order() {
+
+    }
 
 
     // 모든 필드 초기화 (orderId 포함)
