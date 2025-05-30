@@ -1,6 +1,6 @@
 package order.discount;
 
-import tempMember.Member;
+import member.Member;
 
 // order.discount.DiscountPolicy.java
 public interface DiscountPolicy {

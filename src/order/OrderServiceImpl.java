@@ -5,6 +5,8 @@ import member.MemberService;
 import order.discount.DiscountPolicy;
 import member.Member;
 import item.Item;
+import order.discount.FixedDiscountPolicy;
+
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService{
@@ -12,6 +14,7 @@ public class OrderServiceImpl implements OrderService{
     private final ItemService itemService;
     public final DiscountPolicy discountPolicy;
     private final OrderRepository repository;
+
 
     public OrderServiceImpl(MemberService memberService, ItemService itemService, DiscountPolicy discountPolicy, OrderRepository repository) {
         this.memberService = memberService;
@@ -29,8 +32,12 @@ public class OrderServiceImpl implements OrderService{
         Item item = itemService.getItem(itemId);
 
         int itemPrice = item.getPrice();
-        int discount = discountPolicy.discount(member, itemPrice) * quantity;
-        int finalPrice = itemPrice * quantity - discount;
+
+        int fixedDiscount = discountPolicy.discount(member, itemPrice);
+        int rateDiscount = discountPolicy.discount(member, itemPrice);
+        int discount = Math.max(fixedDiscount, rateDiscount);
+
+        int finalPrice =  (itemPrice - discount) * quantity;
 
         Order order = new Order(memberId, itemId,
                                 itemPrice, discount,
@@ -42,13 +49,16 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<Order> getALLOrders() {
-        return repository.findAll();
+        return repository.findMemberOrderedAll(Long memberId);
+
+
     }
 
     @Override
-    public Order getOrder(Long memberId) {
-        return repository.findById(memberId);
+    public Order getOrder(Long id) {
+        return repository.findById();
     }
+
 
     @Override
     public boolean update(Long orderId, int quantity) {

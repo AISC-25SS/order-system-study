@@ -1,7 +1,7 @@
 package order.discount;
 
-import tempMember.Grade;
-import tempMember.Member;
+import member.Grade;
+import member.Member;
 
 // order.discount.FixedDiscountPolicy.java
 public class FixedDiscountPolicy implements DiscountPolicy {

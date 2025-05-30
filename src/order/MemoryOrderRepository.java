@@ -12,7 +12,7 @@ public class MemoryOrderRepository implements OrderRepository {
     private long sequence = 0;
 
     @Override
-    public Order save(Order order, Long quantity) {
+    public Order save(Order order) {
 
         List<Order> orders = storedOrder.get(order.getMemberId());
 
