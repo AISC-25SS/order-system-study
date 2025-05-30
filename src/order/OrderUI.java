@@ -1,22 +1,27 @@
 package order;
 
+import member.Member;
+
 import java.util.*;
 
 
 public class OrderUI {
     private final Scanner scanner = new Scanner(System.in);
     private final OrderService service;
+    private Member loginMember;
 
     public OrderUI(OrderService service) {
         this.service = service;
     }
 
-    public void run() {
+    public void run(Member member) {
+        loginMember = member;
         while (true) {
             System.out.println("\n=== 주문 관리 시스템 ===");
+            System.out.println("0. 상품 목록 보기");
             System.out.println("1. 주문하기");
-            System.out.println("2. 주문 번호로 조회하기");
-            System.out.println("3. 주문 정보 수정하기");
+            System.out.println("2. 주문 조회하기");
+            System.out.println("3. 주문 수정하기");
             System.out.println("4. 주문 취소하기");
             System.out.println("0. 종료");
             System.out.print("메뉴를 선택하세요: ");
@@ -25,6 +30,8 @@ public class OrderUI {
 
             String input = scanner.nextLine();
             switch (input) {
+                case "0":
+                    service.
                 case "1":
                     createOrder();
                     break;
