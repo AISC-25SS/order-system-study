@@ -54,7 +54,7 @@ public class OrderUI {
 
                 case "4":
                     try {
-                        deleteOrder(loginMember.getMemberId());
+                        deleteOrder();
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
@@ -79,6 +79,7 @@ public class OrderUI {
         try {
             System.out.print("상품 ID를 입력하세요:  ");
             itemId = scanner.nextLong();
+            scanner.nextLine();
             service.isValidateItemById(itemId);
 
         } catch(NumberFormatException e) {
@@ -89,6 +90,7 @@ public class OrderUI {
         while (quantity <= 0) {
             System.out.print("주문 수량을 입력하세요: ");
             quantity = scanner.nextInt();
+            scanner.nextLine();
             if (quantity <= 0) {
                 System.out.println("올바른 수량을 입력해주세요");
             }
@@ -100,13 +102,22 @@ public class OrderUI {
     private void findOrder(Long memberId) {
         List<Order> orderList = service.getALLOrders(memberId);
         if (orderList.isEmpty())
-            throw new NoSuchElementException("일치하는 주문이 없습니다");
+            throw new NoSuchElementException("주문 내역이 없습니다");
         for (Order order : orderList)
             System.out.println(order);
     }
 
-    private void deleteOrder(Long orderId) {
-        if(!service.delete(orderId)) {
+    private void deleteOrder() {
+        Long orderId = 0L;
+        try {
+        System.out.print("취소할 주문의 번호를 입력하세요: ");
+        orderId = scanner.nextLong();
+        scanner.nextLine();
+        } catch (NumberFormatException e) {
+            System.out.println("올바른 주문 ID를 입력해주세요.");
+        }
+
+        if (!service.delete(orderId)) {
             throw new IllegalArgumentException("유효하지 않은 요청입니다");
         }
     }
