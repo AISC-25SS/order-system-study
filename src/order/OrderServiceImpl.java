@@ -76,4 +76,9 @@ public class OrderServiceImpl implements OrderService{
         return true;
     }
 
+    //OrderUI 상품 목록 보여주기 용도
+    public List<Item> displayItem() {
+        return itemService.getAllItems();
+    }
+
 }
