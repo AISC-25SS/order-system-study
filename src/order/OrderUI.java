@@ -37,7 +37,6 @@ public class OrderUI {
                     List<Item> itemList = service.displayItem();
                     for (Item item : itemList)
                         System.out.println(item);
-
                     break;
 
                 case "2":
@@ -54,7 +53,7 @@ public class OrderUI {
 
                 case "4":
                     try {
-                        deleteOrder();
+                        deleteOrder(loginMember.getMemberId());
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
@@ -87,7 +86,7 @@ public class OrderUI {
             scanner.nextLine();
             return;
 
-        } catch (NumberFormatException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
         }
@@ -134,19 +133,51 @@ public class OrderUI {
             System.out.println(order);
     }
 
-    private void deleteOrder() {
+    private void deleteOrder(Long memberId) {
         Long orderId = 0L;
         try {
+        findOrder(memberId);
         System.out.print("취소할 주문의 번호를 입력하세요: ");
         orderId = scanner.nextLong();
         scanner.nextLine();
         } catch (NumberFormatException | InputMismatchException e) {
             System.out.println("올바른 주문 ID를 입력해주세요.");
             scanner.nextLine();
+        } catch (NoSuchElementException e) {
+            System.out.println("내가 잡았지롱");
         }
 
         if (!service.delete(orderId)) {
             throw new IllegalArgumentException("유효하지 않은 요청입니다");
         }
     }
+
+//    private void deleteOrder() {
+//        System.out.print("취소할 주문의 번호를 입력하세요: ");
+//        String input = scanner.next();
+//        long orderId;
+//
+//        try {
+//            // 입력받은 문자열을 숫자로 변환
+//            orderId = Long.parseLong(input);
+//
+//            // 논리적 오류 검증: 주문 번호는 양수 요소여야 함 (0 이하일 경우 IllegalArgumentException 발생)
+//            if (orderId <= 0) {
+//                throw new IllegalArgumentException("주문 번호는 양수여야 합니다.");
+//            }
+//
+//        } catch (NumberFormatException e) {
+//            // 숫자로 변환할 수 없는 경우 처리
+//            System.out.println("올바른 주문 ID를 입력해주세요. (숫자만 입력 가능)");
+//            return;
+//        } catch (IllegalArgumentException e) {
+//            // 논리적 오류 검증에 따른 예외 처리
+//            System.out.println(e.getMessage());
+//            return;
+//        }
+//
+//        if (!service.delete(orderId)) {
+//            throw new IllegalArgumentException("유효하지 않은 요청입니다");
+//        }
+//    }
 }
