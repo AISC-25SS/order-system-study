@@ -82,21 +82,48 @@ public class OrderUI {
             scanner.nextLine();
             service.isValidateItemById(itemId);
 
-        } catch(NumberFormatException | InputMismatchException  e) {
+        } catch (InputMismatchException e) {
+            System.out.println("잘못된 형식의 입력입니다");
+            scanner.nextLine();
+            return;
+
+        } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
+            return;
         }
 
         //주문 수량 입력 (간단한 예외처리)
-        while (quantity <= 0) {
+        try {
             System.out.print("주문 수량을 입력하세요: ");
             quantity = scanner.nextInt();
             scanner.nextLine();
-            if (quantity <= 0) {
-                System.out.println("올바른 수량을 입력해주세요");
-            }
-        }
 
-        service.registerOrder(memberId, itemId, quantity);
+            if (quantity <= 0)
+                throw new IllegalArgumentException("올바른 수량을 입력해주세요");
+
+        } catch (InputMismatchException e) {
+            System.out.println("잘못된 형식의 입력입니다");
+            scanner.nextLine();
+            return;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+//        while (quantity <= 0) {
+//            System.out.print("주문 수량을 입력하세요: ");
+//            quantity = scanner.nextInt();
+//            scanner.nextLine();
+//            if (quantity <= 0) {
+//                System.out.println("올바른 수량을 입력해주세요");
+//            }
+//        }
+
+        // 주문 확인 출력용
+        Order newOrder = service.registerOrder(memberId, itemId, quantity);
+        if (newOrder == null)
+            System.out.println("[오류] 주문에 실패하였습니다. 다시 시도해 주세요.");
+        else
+            System.out.println("[주문 완료]: " + newOrder);
     }
 
     private void findOrder(Long memberId) {
