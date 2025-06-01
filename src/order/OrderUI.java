@@ -143,6 +143,7 @@ public class OrderUI {
 
         System.out.print("취소할 주문의 번호를 입력하세요: ");
         String input = scanner.next();
+        scanner.nextLine();
 
         // 사전 검증: 정규 표현식을 사용하여 입력값이 양의 정수로 구성되어 있는지 확인
         if (!input.matches("\\d+")) {
