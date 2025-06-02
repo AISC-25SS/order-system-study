@@ -108,14 +108,6 @@ public class OrderUI {
             System.out.println(e.getMessage());
             return;
         }
-//        while (quantity <= 0) {
-//            System.out.print("주문 수량을 입력하세요: ");
-//            quantity = scanner.nextInt();
-//            scanner.nextLine();
-//            if (quantity <= 0) {
-//                System.out.println("올바른 수량을 입력해주세요");
-//            }
-//        }
 
         // 주문 확인 출력용
         Order newOrder = service.registerOrder(memberId, itemId, quantity);
